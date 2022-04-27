@@ -5,6 +5,7 @@ import com.epsprueba.domain.repository.UserRepository;
 import com.epsprueba.persistence.crud.UsuarioCrudRepository;
 import com.epsprueba.persistence.entity.Usuario;
 import com.epsprueba.persistence.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +13,9 @@ import java.util.Optional;
 
 @Repository
 public class UsuarioRepository implements UserRepository {
+    @Autowired
     private UsuarioCrudRepository usuarioCrudRepository;
+    @Autowired
     private UserMapper mapper;
 
     @Override

@@ -7,13 +7,16 @@ import com.epsprueba.domain.repository.UserPacientRepository;
 import com.epsprueba.persistence.crud.UsuarioPacienteCrudRepository;
 import com.epsprueba.persistence.entity.UsuarioPaciente;
 import com.epsprueba.persistence.mapper.UserPacientMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 @Repository
 public class UsuarioPacienteRepository implements UserPacientRepository {
+    @Autowired
     private UsuarioPacienteCrudRepository usuarioPacienteCrudRepository;
+    @Autowired
     private UserPacientMapper mapper;
 
     public List<UserPacient> getAll(){

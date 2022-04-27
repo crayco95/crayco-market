@@ -5,13 +5,16 @@ import com.epsprueba.domain.repository.ConsultoryRepository;
 import com.epsprueba.persistence.crud.ConsultorioCrudRepository;
 import com.epsprueba.persistence.entity.Consultorio;
 import com.epsprueba.persistence.mapper.ConsultoryMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.util.List;
 import java.util.Optional;
 
 public class ConsultorioRepository implements ConsultoryRepository {
+    @Autowired
     private ConsultorioCrudRepository consultorioCrudRepository;
+    @Autowired
     private ConsultoryMapper mapper;
 
     public List<Consultory> getAll(){

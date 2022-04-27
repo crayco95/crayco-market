@@ -5,6 +5,7 @@ import com.epsprueba.domain.repository.RoleRepository;
 import com.epsprueba.persistence.crud.RolCrudRepository;
 import com.epsprueba.persistence.entity.Rol;
 import com.epsprueba.persistence.mapper.RoleMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +13,9 @@ import java.util.Optional;
 
 @Repository
 public class RolRepository implements RoleRepository {
+    @Autowired
     private RolCrudRepository rolCrudRepository;
+    @Autowired
     private RoleMapper mapper;
 
     @Override

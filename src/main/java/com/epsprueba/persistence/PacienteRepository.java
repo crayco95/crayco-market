@@ -5,6 +5,7 @@ import com.epsprueba.domain.repository.PacientRepository;
 import com.epsprueba.persistence.crud.PacienteCrudRepository;
 import com.epsprueba.persistence.entity.Paciente;
 import com.epsprueba.persistence.mapper.PacientMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +13,9 @@ import java.util.Optional;
 
 @Repository
 public class PacienteRepository implements PacientRepository {
+    @Autowired
     private PacienteCrudRepository pacienteCrudRepository;
+    @Autowired
     private PacientMapper mapper;
 
     public List<Pacient> getAll(){

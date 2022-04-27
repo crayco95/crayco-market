@@ -5,13 +5,16 @@ import com.epsprueba.domain.repository.AppointmentRepository;
 import com.epsprueba.persistence.crud.CitaCrudRepository;
 import com.epsprueba.persistence.entity.Cita;
 import com.epsprueba.persistence.mapper.AppointmentMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 public class CitaRepository implements AppointmentRepository {
+    @Autowired
     private CitaCrudRepository citaCrudRepository;
+    @Autowired
     private AppointmentMapper mapper;
     public List<Appointment>getAll(){
         List<Cita> citas = (List<Cita>) citaCrudRepository.findAll();
