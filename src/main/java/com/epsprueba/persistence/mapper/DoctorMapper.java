@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {UserMapper.class})
 public interface DoctorMapper {
     @Mappings({
@@ -19,6 +21,7 @@ public interface DoctorMapper {
             @Mapping(source = "usuario", target = "user")
     })
     Doctor toDoctor(Medico medico);
+    List<Doctor> toDoctor(List<Medico> medicos);
 
     @InheritInverseConfiguration
     Medico toMedico(Doctor doctor);

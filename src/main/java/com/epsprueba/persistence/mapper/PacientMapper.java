@@ -23,6 +23,7 @@ public interface PacientMapper {
             @Mapping(source = "usuarioPaciente", target = "userPacient"),
     })
     Pacient toPacient(Paciente paciente);
+    List<Pacient> toPacient(List<Paciente> pacientes);
 
     @InheritInverseConfiguration
     @Mapping(target = "citas", ignore = true)

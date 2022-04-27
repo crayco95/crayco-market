@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {DoctorMapper.class, AppointmentMapper.class})
 public interface ConsultoryMapper {
     @Mappings({
@@ -20,6 +22,7 @@ public interface ConsultoryMapper {
 
     })
     Consultory toConsultory(Consultorio consultorio);
+    List<Consultory> toConsultory(List<Consultorio> consultorios);
     @InheritInverseConfiguration
     @Mapping(target = "citas", ignore = true)
     Consultorio toConsultorio(Consultory consultory);

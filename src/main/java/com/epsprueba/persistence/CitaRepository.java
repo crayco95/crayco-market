@@ -1,36 +1,60 @@
 package com.epsprueba.persistence;
 
+import com.epsprueba.domain.Appointment;
+import com.epsprueba.domain.repository.AppointmentRepository;
 import com.epsprueba.persistence.crud.CitaCrudRepository;
 import com.epsprueba.persistence.entity.Cita;
+import com.epsprueba.persistence.mapper.AppointmentMapper;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public class CitaRepository {
+public class CitaRepository implements AppointmentRepository {
     private CitaCrudRepository citaCrudRepository;
-    public List<Cita>getAll(){
-        return (List<Cita>) citaCrudRepository.findAll();
+    private AppointmentMapper mapper;
+    public List<Appointment>getAll(){
+        List<Cita> citas = (List<Cita>) citaCrudRepository.findAll();
+        return mapper.toAppointment(citas);
     }
-    public List<Cita> getByIdCita(int idCita){
-        return citaCrudRepository.findByIdCitaOrderByIdCitaAsc(idCita);
+
+    @Override
+    public List<Appointment> getByAppointmentId(int appointmentId) {
+        List<Cita> citas = citaCrudRepository.findByIdCitaOrderByIdCitaAsc(appointmentId);
+        return mapper.toAppointment(citas);
     }
-    public List<Cita> getByIdPaciente(int idPaciente){
-        return citaCrudRepository.findByIdPacienteOrderByIdCitaAsc(idPaciente);
+
+    @Override
+    public List<Appointment> getByPacientId(int pacientId) {
+        List<Cita> citas = citaCrudRepository.findByIdPacienteOrderByIdCitaAsc(pacientId);
+        return mapper.toAppointment(citas);
     }
-    public List<Cita> getByIdConsultorio(int idConsultorio){
-        return citaCrudRepository.findByIdConsultorioOrderByIdCitaAsc(idConsultorio);
+
+    @Override
+    public List<Appointment> getByConsultoryId(int consultoryId) {
+        List<Cita> citas = citaCrudRepository.findByIdConsultorioOrderByIdCitaAsc(consultoryId);
+        return mapper.toAppointment(citas);
     }
-    public List<Cita> getByFecha(Date fecha){
-        return citaCrudRepository.findByFechaOrderByIdCitaAsc(fecha);
+
+    @Override
+    public List<Appointment> getByDate(Date date) {
+        List<Cita> citas = citaCrudRepository.findByFechaOrderByIdCitaAsc(date);
+        return mapper.toAppointment(citas);
     }
-    public Optional<Cita> getCita(int idCita){
-        return citaCrudRepository.findById(idCita);
+
+    @Override
+    public Optional<Appointment> getAppointment(int appointmentId) {
+        return citaCrudRepository.findById(appointmentId).map(cita -> mapper.toAppointment(cita));
     }
-    public Cita save(Cita cita){
-        return citaCrudRepository.save(cita);
+
+    @Override
+    public Appointment save(Appointment appointment) {
+        Cita cita = mapper.toCita(appointment);
+        return mapper.toAppointment(citaCrudRepository.save(cita));
     }
-    public void delete(int idCita){
-        citaCrudRepository.deleteById(idCita);
+
+    @Override
+    public void delete(int appointmentId){
+        citaCrudRepository.deleteById(appointmentId);
     }
 }

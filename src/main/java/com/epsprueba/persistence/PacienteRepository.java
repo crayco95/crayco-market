@@ -1,32 +1,42 @@
 package com.epsprueba.persistence;
 
+import com.epsprueba.domain.Pacient;
+import com.epsprueba.domain.repository.PacientRepository;
 import com.epsprueba.persistence.crud.PacienteCrudRepository;
 import com.epsprueba.persistence.entity.Paciente;
+import com.epsprueba.persistence.mapper.PacientMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class PacienteRepository {
+public class PacienteRepository implements PacientRepository {
     private PacienteCrudRepository pacienteCrudRepository;
+    private PacientMapper mapper;
 
-    public List<Paciente> getAll(){
-        return (List<Paciente>) pacienteCrudRepository.findAll();
-    }
-    public Optional<Paciente>getByCedula(int cedulaPaciente){
-        return pacienteCrudRepository.findByCedulaPaciente(cedulaPaciente);
-    }
-
-    public Optional<Paciente> getPaciente(int idPaciente){
-        return pacienteCrudRepository.findById(idPaciente);
+    public List<Pacient> getAll(){
+        List<Paciente> pacientes = (List<Paciente>) pacienteCrudRepository.findAll();
+        return mapper.toPacient(pacientes);
     }
 
-    public Paciente save(Paciente paciente){
-        return pacienteCrudRepository.save(paciente);
+    @Override
+    public Optional<Pacient> getByPacientIdCard(int pacientIdCard) {
+        return pacienteCrudRepository.findByCedulaPaciente(pacientIdCard).map(pacienteCard -> mapper.toPacient(pacienteCard));
     }
 
-    public void delete(int idPaciente){
-        pacienteCrudRepository.deleteById(idPaciente);
+    @Override
+    public Optional<Pacient> getPacient(int pacientId) {
+        return pacienteCrudRepository.findById(pacientId).map(paciente -> mapper.toPacient(paciente));
+    }
+
+    @Override
+    public Pacient save(Pacient pacient) {
+        Paciente paciente = mapper.toPaciente(pacient);
+        return mapper.toPacient(pacienteCrudRepository.save(paciente));
+    }
+    @Override
+    public void delete(int pacientId){
+        pacienteCrudRepository.deleteById(pacientId);
     }
 }

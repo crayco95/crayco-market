@@ -17,7 +17,7 @@ public interface UserPacientMapper {
             @Mapping(source = "password", target = "password"),
     })
     UserPacient toUserPacient(UsuarioPaciente usuarioPaciente);
-    List<UserPacient> toUserPacient
+    List<UserPacient> toUserPacient(List<UsuarioPaciente> usuarioPacientes);
 
     @InheritInverseConfiguration
     UsuarioPaciente toUsuarioPaciente(UserPacient userPacient);

@@ -1,50 +1,38 @@
 package com.epsprueba.persistence;
 
 
-import com.epsprueba.domain.User;
-import com.epsprueba.domain.repository.UserRepository;
+
+import com.epsprueba.domain.UserPacient;
+import com.epsprueba.domain.repository.UserPacientRepository;
 import com.epsprueba.persistence.crud.UsuarioPacienteCrudRepository;
 import com.epsprueba.persistence.entity.UsuarioPaciente;
 import com.epsprueba.persistence.mapper.UserPacientMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
-public class UsuarioPacienteRepository implements UserRepository {
+@Repository
+public class UsuarioPacienteRepository implements UserPacientRepository {
     private UsuarioPacienteCrudRepository usuarioPacienteCrudRepository;
     private UserPacientMapper mapper;
 
-    public List<UsuarioPaciente> getAll(){
-        return (List<UsuarioPaciente>) usuarioPacienteCrudRepository.findAll();
+    public List<UserPacient> getAll(){
+        List<UsuarioPaciente> usuarioPacientes = (List<UsuarioPaciente>) usuarioPacienteCrudRepository.findAll();
+        return mapper.toUserPacient(usuarioPacientes);
     }
 
     @Override
-    public List<User> getByUserId(int userId) {
-        return null;
+    public Optional<UserPacient> getUserPacient(int userPacientId) {
+        return usuarioPacienteCrudRepository.findById(userPacientId).map(usuarioPaciente -> mapper.toUserPacient(usuarioPaciente));
     }
 
     @Override
-    public List<User> getByRoleId(int roleId) {
-        return null;
+    public UserPacient save(UserPacient userPacient) {
+        UsuarioPaciente usuarioPaciente = mapper.toUsuarioPaciente(userPacient);
+        return mapper.toUserPacient(usuarioPacienteCrudRepository.save(usuarioPaciente));
     }
-
     @Override
-    public Optional<User> getUser(int userId) {
-        return Optional.empty();
-    }
-
-    @Override
-    public User save(User user) {
-        return null;
-    }
-
-    public Optional<UsuarioPaciente> getUsuarioPaciente(int idUsuarioPaciente){
-        return usuarioPacienteCrudRepository.findById(idUsuarioPaciente);
-    }
-    public UsuarioPaciente save(UsuarioPaciente usuarioPaciente){
-        return usuarioPacienteCrudRepository.save(usuarioPaciente);
-    }
-    public void delete(int idUsuarioPaciente){
-        usuarioPacienteCrudRepository.deleteById(idUsuarioPaciente);
+    public void delete(int userPacientId){
+        usuarioPacienteCrudRepository.deleteById(userPacientId);
     }
 }

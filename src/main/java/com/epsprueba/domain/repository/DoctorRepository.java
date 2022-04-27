@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DoctorRepository {
-    List<DoctorRepository> getAll();
-    List<DoctorRepository> getByDoctorId(int doctorId);
-    Optional<DoctorRepository> getDoctor(int doctorId);
+    List<Doctor> getAll();
+    List<Doctor> getByDoctorId(int doctorId);
+    Optional<Doctor> getDoctor(int doctorId);
     Doctor save(Doctor doctor);
     void delete(int doctorId);
 }

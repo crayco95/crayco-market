@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {ConsultoryMapper.class,PacientMapper.class})
 public interface AppointmentMapper {
     @Mappings({
@@ -23,6 +25,7 @@ public interface AppointmentMapper {
             @Mapping(source = "paciente", target = "pacient"),
     })
     Appointment toAppointment(Cita cita);
+    List<Appointment> toAppointment(List<Cita> citas);
 
     @InheritInverseConfiguration
     Cita toCita(Appointment appointment);
