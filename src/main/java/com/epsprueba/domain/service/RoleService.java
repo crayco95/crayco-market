@@ -21,6 +21,19 @@ public class RoleService {
     public Role save(Role role){
         return roleRepository.save(role);
     }
+
+    public Role update(Role role, int roleId) {
+        return roleRepository.getRole(roleId)
+                .map(role1 -> {
+                    role1.setRoleId(role.getRoleId());
+                    role1.setRoleName(role.getRoleName());
+                    return roleRepository.save(role1);
+                })
+                .orElseGet(() -> {
+                    role.setRoleId(roleId);
+                    return roleRepository.save(role);
+                });
+    }
     public boolean delete(int roleId){
         return getRole(roleId).map(role -> {
             roleRepository.delete(roleId);

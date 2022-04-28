@@ -24,6 +24,23 @@ public class DoctorService {
     public Doctor save(Doctor doctor){
         return doctorRepository.save(doctor);
     }
+    public Doctor update(Doctor doctor, int doctorId) {
+        return doctorRepository.getDoctor(doctorId)
+                .map(doctor1 -> {
+                    doctor1.setDoctorId(doctor.getDoctorId());
+                    doctor1.setUserId(doctor.getUserId());
+                    doctor1.setNameDoctor(doctor.getNameDoctor());
+                    doctor1.setLastNameDoctor(doctor.getLastNameDoctor());
+                    doctor1.setEmail(doctor.getEmail());
+                    doctor1.setActive(doctor.isActive());
+                    doctor1.setUser(doctor.getUser());
+                    return doctorRepository.save(doctor1);
+                })
+                .orElseGet(() -> {
+                    doctor.setDoctorId(doctorId);
+                    return doctorRepository.save(doctor);
+                });
+    }
     public boolean delete(int doctorId){
         return getDoctor(doctorId).map(doctor -> {
             doctorRepository.delete(doctorId);

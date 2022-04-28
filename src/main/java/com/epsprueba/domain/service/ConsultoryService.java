@@ -31,6 +31,22 @@ public class ConsultoryService {
     public Consultory save(Consultory consultory){
         return consultoryRepository.save(consultory);
     }
+    public Consultory update(Consultory consultory, int consultoryId) {
+        return consultoryRepository.getConsultory(consultoryId)
+                .map(consultory1 -> {
+                    consultory1.setConsultoryId(consultory.getConsultoryId());
+                    consultory1.setDoctorId(consultory.getDoctorId());
+                    consultory1.setDepartament(consultory.getDepartament());
+                    consultory1.setCity(consultory.getCity());
+                    consultory1.setAdress(consultory.getAdress());
+                    consultory1.setDoctor(consultory.getDoctor());
+                    return consultoryRepository.save(consultory1);
+                })
+                .orElseGet(() -> {
+                    consultory.setConsultoryId(consultoryId);
+                    return consultoryRepository.save(consultory);
+                });
+    }
     public boolean delete(int consultoryId){
         return getConsultory(consultoryId).map(consultory -> {
             consultoryRepository.delete(consultoryId);

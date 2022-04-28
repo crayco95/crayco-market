@@ -22,8 +22,12 @@ public class RoleController {
         return roleService.getRole(roleId);
     }
     @PostMapping("/save")
-    public Role save(Role role){
+    public Role save(@RequestBody Role role){
         return roleService.save(role);
+    }
+    @PutMapping("/update/{id}")
+    public void update(@RequestBody Role role, @PathVariable("id") int roleId){
+        roleService.update(role, roleId);
     }
     @DeleteMapping("/delete/{id}")
     public boolean delete(@PathVariable("id") int roleId){

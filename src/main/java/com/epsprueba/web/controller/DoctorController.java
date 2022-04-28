@@ -22,7 +22,7 @@ public class DoctorController {
         return doctorService.getDoctor(doctorId);
     }
     @PostMapping("/save")
-    public Doctor save(Doctor doctor){
+    public Doctor save(@RequestBody Doctor doctor){
         return doctorService.save(doctor);
     }
     @DeleteMapping("/delete")

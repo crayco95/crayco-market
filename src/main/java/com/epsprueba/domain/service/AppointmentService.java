@@ -35,6 +35,27 @@ public class AppointmentService {
     public Appointment save(Appointment appointment){
         return appointmentRepository.save(appointment);
     }
+    public Appointment update(Appointment appointment, int appointmentId) {
+        return appointmentRepository.getAppointment(appointmentId)
+                .map(appointment1 -> {
+                    appointment1.setAppointmentId(appointment.getAppointmentId());
+                    appointment1.setPacientId(appointment.getPacientId());
+                    appointment1.setConsultoryId(appointment.getConsultoryId());
+                    appointment1.setDate(appointment.getDate());
+                    appointment1.setHour(appointment.getHour());
+                    appointment1.setActive(appointment.isActive());
+                    appointment1.setDiagnosis(appointment.getDiagnosis());
+                    appointment1.setMedicines(appointment.getMedicines());
+                    appointment1.setCancellationReason(appointment.getCancellationReason());
+                    appointment1.setPacient(appointment.getPacient());
+                    appointment1.setConsultory(appointment.getConsultory());
+                    return appointmentRepository.save(appointment1);
+                })
+                .orElseGet(() -> {
+                    appointment.setAppointmentId(appointmentId);
+                    return appointmentRepository.save(appointment);
+                });
+    }
     public boolean delete(int appointmentId){
         return getAppointment(appointmentId).map(appointment -> {
             appointmentRepository.delete(appointmentId);

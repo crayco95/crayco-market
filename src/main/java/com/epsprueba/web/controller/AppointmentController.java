@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/appointment")
+@RequestMapping("/appointments")
 public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
@@ -35,8 +35,12 @@ public class AppointmentController {
         return appointmentService.getAppointment(appointmentId);
     }
     @PostMapping("/save")
-    public Appointment save(Appointment appointment){
+    public Appointment save(@RequestBody Appointment appointment){
         return appointmentService.save(appointment);
+    }
+    @PutMapping("/update/{id}")
+    public void update(@RequestBody Appointment appointment, @PathVariable("id") int appointmentId){
+        appointmentService.update(appointment, appointmentId);
     }
     @DeleteMapping("/delete/{id}")
     public boolean delete(int appointmentId){

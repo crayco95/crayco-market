@@ -1,5 +1,6 @@
 package com.epsprueba.web.controller;
 
+
 import com.epsprueba.domain.User;
 import com.epsprueba.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,12 @@ public class UserController {
         return userService.getUser(userId);
     }
     @PostMapping("/save")
-    public User save(User user){
+    public User save(@RequestBody User user){
         return userService.save(user);
+    }
+    @PutMapping("/update/{id}")
+    public void update(@RequestBody User user, @PathVariable("id") int userId){
+        userService.update(user, userId);
     }
     @DeleteMapping("/delete/{id}")
     public boolean delete(@PathVariable("id") int userId){

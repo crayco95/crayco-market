@@ -30,8 +30,12 @@ public class ConsultoryController {
         return consultoryService.getConsultory(consultoryId);
     }
     @PostMapping("/save")
-    public Consultory save(Consultory consultory){
+    public Consultory save(@RequestBody Consultory consultory){
         return consultoryService.save(consultory);
+    }
+    @PutMapping("/update/{id}")
+    public void update(@RequestBody Consultory consultory, @PathVariable("id") int consultoryId){
+        consultoryService.update(consultory, consultoryId);
     }
     @DeleteMapping("/delete/{id}")
     public boolean delete(int consultoryId){

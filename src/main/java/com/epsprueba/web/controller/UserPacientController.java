@@ -1,5 +1,6 @@
 package com.epsprueba.web.controller;
 
+
 import com.epsprueba.domain.UserPacient;
 import com.epsprueba.domain.service.UserPacientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,12 @@ public class UserPacientController {
         return userPacientService.getUserPacient(userPacientId);
     }
     @PostMapping("/save")
-    public UserPacient save(UserPacient userPacient){
+    public UserPacient save(@RequestBody UserPacient userPacient){
         return userPacientService.save(userPacient);
+    }
+    @PutMapping("/update/{id}")
+    public void update(@RequestBody UserPacient userPacient, @PathVariable("id") int userPacientId){
+        userPacientService.update(userPacient, userPacientId);
     }
     @DeleteMapping("delete/{id}")
     public boolean delete(int userPacientId){

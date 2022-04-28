@@ -29,6 +29,10 @@ public class PacientController {
     public Pacient save(@RequestBody Pacient pacient){
         return pacientService.save(pacient);
     }
+    @PutMapping("/update/{id}")
+    public void update(@RequestBody Pacient pacient, @PathVariable("id") int pacientId){
+        pacientService.update(pacient, pacientId);
+    }
 
     @DeleteMapping("/delete/{id}")
     public boolean delete(int pacientId){
