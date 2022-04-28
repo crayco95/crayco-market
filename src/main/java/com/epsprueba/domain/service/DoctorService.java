@@ -3,10 +3,11 @@ package com.epsprueba.domain.service;
 import com.epsprueba.domain.Doctor;
 import com.epsprueba.domain.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class DoctorService {
     @Autowired
     private DoctorRepository doctorRepository;

@@ -6,11 +6,12 @@ import com.epsprueba.persistence.crud.ConsultorioCrudRepository;
 import com.epsprueba.persistence.entity.Consultorio;
 import com.epsprueba.persistence.mapper.ConsultoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 
 import java.util.List;
 import java.util.Optional;
-
+@Repository
 public class ConsultorioRepository implements ConsultoryRepository {
     @Autowired
     private ConsultorioCrudRepository consultorioCrudRepository;

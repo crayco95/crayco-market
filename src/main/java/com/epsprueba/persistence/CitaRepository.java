@@ -6,11 +6,12 @@ import com.epsprueba.persistence.crud.CitaCrudRepository;
 import com.epsprueba.persistence.entity.Cita;
 import com.epsprueba.persistence.mapper.AppointmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
+@Repository
 public class CitaRepository implements AppointmentRepository {
     @Autowired
     private CitaCrudRepository citaCrudRepository;
